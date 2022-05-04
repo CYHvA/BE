@@ -1,0 +1,30 @@
+{
+  "name": "matchingmodule",
+  "version": "1.0.0",
+  "description": "this is the matching module for my current study",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CYHvA/BE.git"
+  },
+  "keywords": [
+    "matching",
+    "module"
+  ],
+  "author": "Chunyin Lai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CYHvA/BE/issues"
+  },
+  "homepage": "https://github.com/CYHvA/BE#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
