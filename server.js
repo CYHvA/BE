@@ -6,7 +6,7 @@ const path = require('path')
 //Template engine
 app.set('view engine', 'ejs')
 
-//Render route to index page
+//Render template engine route to index page
 app.get('/', (req, res) => {
   res.render('index', { title: 'Hey', message: 'Hello there!' })
 })
