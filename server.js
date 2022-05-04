@@ -1,6 +1,18 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const path = require('path')
+
+//Template engine
+app.set('view engine', 'ejs')
+
+//Render route to index page
+app.get('/', (req, res) => {
+  res.render('index', { title: 'Hey', message: 'Hello there!' })
+})
+
+//Linked assets folder to local server with route prefix
+app.use('/public', express.static('public'))
 
 //Route to index
 app.get('/', (req, res) => {
@@ -21,7 +33,6 @@ app.get('/login', (req, res) => {
 app.use((req, res, next) => {
   res.status(404).send("Error 404, Sorry can't find that!") 
 })
-
 
 //Listens to a certain port (currently on port: 3000)
 app.listen(port, () => {
