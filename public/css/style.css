@@ -1,0 +1,49 @@
+*, *::after, *::before {
+    box-sizing:border-box;  
+}
+
+* {
+    margin: 0 auto;
+}
+
+h1, h2, h3, p, a {
+    font-family: 'Quicksand', sans-serif;
+}
+
+:root {
+    --main-orange: #fcbf49;
+    --shade-orange: #ffd37a; 
+}
+
+/*NAV STYLE*/
+
+header { 
+    background-color: var(--main-orange);
+    padding: 20px 0;
+}
+
+nav {
+    display: flex;
+    width: 500px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #696969;
+    transition: .1s ease-in-out;
+}
+
+/* Homepage */
+article:first-of-type {
+    background: var(--shade-orange);
+    min-height: 100vh;
+}
+
+article:first-of-type h1 {
+    color: white;
+}
