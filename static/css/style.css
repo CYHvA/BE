@@ -47,15 +47,3 @@ body {
 body h1 {
     color: white;
 }
-
-label {
-    border:1px solid #ccc;
-    padding:10px;
-    margin:0 0 10px;
-    display:block; 
-   }
-   
-label:hover {
-    background:#eee;
-    cursor:pointer;
-}
