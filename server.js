@@ -41,7 +41,9 @@ const songs = [
     name: "Nun To Me",
     artist: "Kankan",
     year: "2020",
-    genre: ["hip-hop", "underground rap"],
+    genre: ["hip-hop", "underground rap", "pluggnb"],
+    producer: "30nickk",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
   },
   {
     id: 2,
@@ -49,8 +51,20 @@ const songs = [
     name: "So Much Cheese",
     artist: "Summrs",
     year: "2022",
-    genre: ["hip-hop", "underground rap"],
+    genre: ["hip-hop", "underground rap", "rage"],
+    producer: ["Hudsonmajor", " Pink", " Barthow"],
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
   },
+  {
+    id: 3,
+    slug: "XO",
+    name: "XO",
+    artist: "Benjicold",
+    year: "2022",
+    genre: ["hip-hop", "underground rap", "pluggnb"],
+    producer: "Goyxrd",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
+  }
 ];
 
 /*********************************************
@@ -61,13 +75,6 @@ app.set("view engine", "ejs");
 /*********************************************
  * Pages
  *********************************************/
-// app.get("/", (req, res) => {
-
-//   let doc = '
-//   songs.forEach( name => {
-//     res.send(`<h1>${songs.name}</h1>`)
-//   })
-// });
 
 app.get("/home", (req, res) => {
   res.render("pages/index", {});
@@ -78,9 +85,49 @@ app.get("/addsong", (req, res) => {
 });
 
 /*********************************************
+ * Demo (Data uit local server halen)
+ *********************************************/
+app.get('/',(req,res)=> {
+  let doc = '<!doctype html>';
+  doc += '<title>Songs</title>'
+  doc += '<h1>Songs</h1>'
+
+  songs.forEach(track => {
+        doc += "<section>";
+        doc += `<h2>${track.name}</h2>`;
+        doc += `<h3>${track.artist}</h3>`;
+        doc += `<h3>Produced by: ${track.producer}</h3>`;
+        doc += `<p>${track.year}</p>`;
+        doc += "</ul>";
+        doc += `<a href="/track/${track.id}/${track.slug}">More info</a>`; 
+        doc += "</section>";
+   });
+    res.send(doc);
+});
+
+app.get('/track/:id/:slug', (req, res) => {
+  const track = songs.find( element => element.id == req.params.id)
+  console.log(track);
+
+  let doc = '<!doctype html>';
+  doc += `<title>${track.name}</title>`;
+  doc += `<h1>${track.name}</h1>`;
+  doc += `<h2>${track.artist}</h2>`;
+  doc += `<h3>Produced by: ${track.producer}</h3>`;
+  doc += "<h2>Genre</h2>";
+  doc += "<ul>";
+  track.genre.forEach(genre => {
+    doc += `<li>${genre}</li>`;
+  })
+  doc += "</ul>";
+  doc += `<p>${track.description}</p>`;
+  res.send(doc);
+});
+
+/*********************************************
  * Middleware
  *********************************************/
-app.use("/static", express.static("static"));
+app.use("/", express.static("static"));
 
 /*********************************************
  * Error 404
