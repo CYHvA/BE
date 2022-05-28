@@ -26,9 +26,21 @@ const path = require("path");
 // }
 
 /*********************************************
+ * Template Engine
+ *********************************************/
+ app.set("view engine", "ejs");
+
+/*********************************************
+ * Middleware
+ *********************************************/
+ app.use("/", express.static("static"));
+ app.use(express.json());
+ app.use(express.urlencoded({ extended:true }));
+
+/*********************************************
  * Data
  *********************************************/
-const songsData = require("./data/mockdata.js");
+// const songs = require("data/mockdata.js");
 
 /*********************************************
  * Temporarily Mock Data
@@ -38,96 +50,99 @@ const songs = [
   {
     id: 1,
     slug: "nun-to-me",
-    name: "Nun To Me",
-    artist: "Kankan",
+    title: "Nun To Me",
+    artistname: "Kankan",
     year: "2020",
-    genre: ["hip-hop", "underground rap", "pluggnb"],
+    genre: ["Hip-Hop", "Underground rap", "Pluggnb"],
     producer: "30nickk",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
   },
   {
     id: 2,
     slug: "so-much-cheese",
-    name: "So Much Cheese",
-    artist: "Summrs",
+    title: "So Much Cheese",
+    artistname: "Summrs",
     year: "2022",
-    genre: ["hip-hop", "underground rap", "rage"],
+    genre: ["Hip-Hop", "Underground rap", "Rage"],
     producer: ["Hudsonmajor", " Pink", " Barthow"],
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
   },
   {
     id: 3,
     slug: "XO",
-    name: "XO",
-    artist: "Benjicold",
+    title: "XO",
+    artistname: "Benjicold",
     year: "2022",
-    genre: ["hip-hop", "underground rap", "pluggnb"],
+    genre: ["Hip-Hop", "Underground rap", "Pluggnb"],
     producer: "Goyxrd",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
   }
 ];
 
 /*********************************************
- * Template Engine
- *********************************************/
-app.set("view engine", "ejs");
-
-/*********************************************
  * Pages
  *********************************************/
 
 app.get("/home", (req, res) => {
-  res.render("pages/index", {});
+  res.render("pages/index", {songs: songs});
 });
 
 app.get("/addsong", (req, res) => {
-  res.render("pages/form", {});
+  res.render("pages/addsong", {songs: songs});
+});
+
+app.post('/addsong', (req, res) => {
+  console.log(req.body);
+
+  songs.push ({
+    title: req.body.title,
+    artistname: req.body.artistname,
+    genre: req.body.genre  
+  })
+
+  res.render("pages/addsong", {songs: songs});
+
 });
 
 /*********************************************
  * Demo (Data uit local server halen)
  *********************************************/
-app.get('/',(req,res)=> {
-  let doc = '<!doctype html>';
-  doc += '<title>Songs</title>'
-  doc += '<h1>Songs</h1>'
+// app.get('/',(req,res)=> {
+//   let doc = '<!doctype html>';
+//   doc += '<title>Songs</title>'
+//   doc += '<h1>Songs</h1>'
 
-  songs.forEach(track => {
-        doc += "<section>";
-        doc += `<h2>${track.name}</h2>`;
-        doc += `<h3>${track.artist}</h3>`;
-        doc += `<h3>Produced by: ${track.producer}</h3>`;
-        doc += `<p>${track.year}</p>`;
-        doc += "</ul>";
-        doc += `<a href="/track/${track.id}/${track.slug}">More info</a>`; 
-        doc += "</section>";
-   });
-    res.send(doc);
-});
+//   songs.forEach(track => {
+//         doc += "<section>";
+//         doc += `<h2>${track.name}</h2>`;
+//         doc += `<h3>${track.artist}</h3>`;
+//         doc += `<h3>Produced by: ${track.producer}</h3>`;
+//         doc += `<p>${track.year}</p>`;
+//         doc += "</ul>";
+//         doc += `<a href="/track/${track.id}/${track.slug}">More info</a>`; 
+//         doc += "</section>";
+//    });
+//     res.send(doc);
+// });
 
-app.get('/track/:id/:slug', (req, res) => {
-  const track = songs.find( element => element.id == req.params.id)
-  console.log(track);
+// app.get('/track/:id/:slug', (req, res) => {
+//   const track = songs.find( element => element.id == req.params.id)
+//   console.log(track);
 
-  let doc = '<!doctype html>';
-  doc += `<title>${track.name}</title>`;
-  doc += `<h1>${track.name}</h1>`;
-  doc += `<h2>${track.artist}</h2>`;
-  doc += `<h3>Produced by: ${track.producer}</h3>`;
-  doc += "<h2>Genre</h2>";
-  doc += "<ul>";
-  track.genre.forEach(genre => {
-    doc += `<li>${genre}</li>`;
-  })
-  doc += "</ul>";
-  doc += `<p>${track.description}</p>`;
-  res.send(doc);
-});
-
-/*********************************************
- * Middleware
- *********************************************/
-app.use("/", express.static("static"));
+//   let doc = '<!doctype html>';
+//   doc += `<title>${track.name}</title>`;
+//   doc += `<h1>${track.name}</h1>`;
+//   doc += `<h2>${track.artist}</h2>`;
+//   doc += `<h3>Produced by: ${track.producer}</h3>`;
+//   doc += "<h2>Genre</h2>";
+//   doc += "<ul>";
+//   track.genre.forEach(genre => {
+//     doc += `<li>${genre}</li>`;
+//   })
+//   doc += "</ul>";
+//   doc += `<p>${track.description}</p>`;
+//   res.send(doc);
+// });
 
 /*********************************************
  * Error 404
