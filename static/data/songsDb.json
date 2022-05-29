@@ -1,0 +1,31 @@
+[{
+      "id": "nuntome",
+      "slug": "nun-to-me",
+      "title": "Nun To Me",
+      "artistname": "Kankan",
+      "year": "2020",
+      "genre": ["Hip-Hop", "Underground rap", "Pluggnb"],
+      "producer": "30nickk",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
+    },
+    {
+      "id": "somuchcheese",
+      "slug": "so-much-cheese",
+      "title": "So Much Cheese",
+      "artistname": "Summrs",
+      "year": "2022",
+      "genre": ["Hip-Hop", "Underground rap", "Rage"],
+      "producer": ["Hudsonmajor", " Pink", " Barthow"],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
+    },
+    {
+      "id": "xo",
+      "slug": "XO",
+      "title": "XO",
+      "artistname": "Benjicold",
+      "year": "2022",
+      "genre": ["Hip-Hop", "Underground rap", "Pluggnb"],
+      "producer": "Goyxrd",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
+    }
+]

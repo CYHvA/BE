@@ -3,27 +3,9 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const path = require("path");
-// const dotenv = require("dotenv").config();
-// const { MongoClient } = require("mongodb");
-// const { ObjectId } = require("mongodb");
-
-// async function connectDB() {
-//   const uri = process.env.DB_URI;
-
-//   const client = new MongoClient(uri, {
-//     useNewUrlParser: true,
-
-//     useUnifiedTopology: true,
-//   });
-
-//   try {
-//     await client.connect();
-
-//     db = client.db(process.env.DB_NAME);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+const dotenv = require("dotenv").config();
+const { MongoClient } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 /*********************************************
  * Template Engine
@@ -37,10 +19,6 @@ const path = require("path");
  app.use(express.json());
  app.use(express.urlencoded({ extended:true }));
 
-/*********************************************
- * Data
- *********************************************/
-// const songs = require("data/mockdata.js");
 
 /*********************************************
  * Temporarily Mock Data
@@ -48,7 +26,7 @@ const path = require("path");
 
 const songs = [
   {
-    id: 1,
+    id: "nuntome",
     slug: "nun-to-me",
     title: "Nun To Me",
     artistname: "Kankan",
@@ -58,7 +36,7 @@ const songs = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
   },
   {
-    id: 2,
+    id: "somuchcheese",
     slug: "so-much-cheese",
     title: "So Much Cheese",
     artistname: "Summrs",
@@ -68,7 +46,7 @@ const songs = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
   },
   {
-    id: 3,
+    id: "xo",
     slug: "XO",
     title: "XO",
     artistname: "Benjicold",
@@ -83,18 +61,24 @@ const songs = [
  * Pages
  *********************************************/
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   res.render("pages/index", {songs: songs});
+});
+
+app.get("/details", (req, res) => {
+  res.render("pages/details", {songs: songs});
 });
 
 app.get("/addsong", (req, res) => {
   res.render("pages/addsong", {songs: songs});
 });
 
-app.post('/addsong', (req, res) => {
-  console.log(req.body);
+// insert data into page
+app.post("/addsong", (req, res) => {
+  const id = req.body.title.toLowerCase();
 
   songs.push ({
+    id: id,
     title: req.body.title,
     artistname: req.body.artistname,
     genre: req.body.genre  
@@ -103,6 +87,26 @@ app.post('/addsong', (req, res) => {
   res.render("pages/addsong", {songs: songs});
 
 });
+
+// connection with mongodb 
+async function connectDB() {
+  const uri = process.env.DB_URI;
+
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+
+    useUnifiedTopology: true,
+  });
+
+  try {
+    await client.connect();
+
+    db = client.db(process.env.DB_NAME);
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 /*********************************************
  * Demo (Data uit local server halen)
@@ -155,5 +159,5 @@ app.use((req, res, next) => {
  * Listens to a certain port (currently on port: 3000)
  *********************************************/
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(process.env.TESTVAR);
 });
