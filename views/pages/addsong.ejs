@@ -20,6 +20,12 @@
             <label for="artistname">Name of the artist: </label>
             <input type="text" name="artistname" id="artistname" required>
 
+            <label for="year">Year: </label>
+            <input type="text" name="year" id="year" required>
+
+            <label for="producer">Producer: </label>
+            <input type="text" name="producer" id="producer" required>
+
             <select name="genre" id="genre" required>
                 <option value="Hip-hop">Hip-Hop</option>
                 <option value="Pop">Pop</option>
@@ -29,20 +35,5 @@
 
             <input type="submit" value="Submit">
         </form>
-
-        <h3>Songs</h3>
-        <article>
-            <% for (var index=0; index < songs.length; index++) { %>
-                <h2>
-                    <%= songs[index].title %>
-                </h2>
-                <p>
-                    <%= songs[index].artistname %>
-                </p>
-                <p>
-                    <%= songs[index].genre %> 
-                </p>
-                <% } %>
-        </article>
 </body>
 </html>

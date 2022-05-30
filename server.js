@@ -13,79 +13,56 @@ const { ObjectId } = require("mongodb");
  app.set("view engine", "ejs");
 
 /*********************************************
- * Middleware
+ * Middlewares
  *********************************************/
- app.use("/", express.static("static"));
+ app.use(express.static("static"));
  app.use(express.json());
  app.use(express.urlencoded({ extended:true }));
 
-
 /*********************************************
- * Temporarily Mock Data
+ * Misc. Vars
  *********************************************/
-
-const songs = [
-  {
-    id: "nuntome",
-    slug: "nun-to-me",
-    title: "Nun To Me",
-    artistname: "Kankan",
-    year: "2020",
-    genre: ["Hip-Hop", "Underground rap", "Pluggnb"],
-    producer: "30nickk",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
-  },
-  {
-    id: "somuchcheese",
-    slug: "so-much-cheese",
-    title: "So Much Cheese",
-    artistname: "Summrs",
-    year: "2022",
-    genre: ["Hip-Hop", "Underground rap", "Rage"],
-    producer: ["Hudsonmajor", " Pink", " Barthow"],
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
-  },
-  {
-    id: "xo",
-    slug: "XO",
-    title: "XO",
-    artistname: "Benjicold",
-    year: "2022",
-    genre: ["Hip-Hop", "Underground rap", "Pluggnb"],
-    producer: "Goyxrd",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et quam nec tellus eleifend ornare. Curabitur sed velit consectetur purus tempus ultrices sed eget ipsum."
-  }
-];
+let db = null;
 
 /*********************************************
  * Pages
  *********************************************/
 
-app.get("/", (req, res) => {
-  res.render("pages/index", {songs: songs});
-});
+app.get("/", async (req, res) => {
+  const query = {};
+  const tracklist = await db.collection("songs"). find({},{}).toArray();
+  const error = (tracklist.length == 0) ? "No tracks are found" : "tracklist";
 
-app.get("/details", (req, res) => {
-  res.render("pages/details", {songs: songs});
-});
-
-app.get("/addsong", (req, res) => {
-  res.render("pages/addsong", {songs: songs});
-});
-
-// insert data into page
-app.post("/addsong", (req, res) => {
-  const id = req.body.title.toLowerCase();
-
-  songs.push ({
-    id: id,
+  let song = {
     title: req.body.title,
     artistname: req.body.artistname,
-    genre: req.body.genre  
-  })
+    year: req.body.year,
+    producer: req.body.producer,
+    genre: req.body.genre
+  };
 
-  res.render("pages/addsong", {songs: songs});
+  res.render("pages/profile", {error, tracklist, song});
+});
 
+app.get("/addsong", async(req,res) => {
+  res.render("pages/addsong");
+});
+
+app.post("/addsong", async (req, res) => {
+
+  let add = {
+    title: req.body.title,
+    artistname: req.body.artistname,
+    year: req.body.year,
+    producer: req.body.producer,
+    genre: req.body.genre
+  };
+
+  await db.collection("songs").insertOne(add);
+
+  const query = {};
+  const tracklist = await db.collection("songs").find(query).toArray();
+  res.render("pages/profile", {tracklist});
 });
 
 // connection with mongodb 
@@ -107,47 +84,6 @@ async function connectDB() {
   }
 };
 
-
-/*********************************************
- * Demo (Data uit local server halen)
- *********************************************/
-// app.get('/',(req,res)=> {
-//   let doc = '<!doctype html>';
-//   doc += '<title>Songs</title>'
-//   doc += '<h1>Songs</h1>'
-
-//   songs.forEach(track => {
-//         doc += "<section>";
-//         doc += `<h2>${track.name}</h2>`;
-//         doc += `<h3>${track.artist}</h3>`;
-//         doc += `<h3>Produced by: ${track.producer}</h3>`;
-//         doc += `<p>${track.year}</p>`;
-//         doc += "</ul>";
-//         doc += `<a href="/track/${track.id}/${track.slug}">More info</a>`; 
-//         doc += "</section>";
-//    });
-//     res.send(doc);
-// });
-
-// app.get('/track/:id/:slug', (req, res) => {
-//   const track = songs.find( element => element.id == req.params.id)
-//   console.log(track);
-
-//   let doc = '<!doctype html>';
-//   doc += `<title>${track.name}</title>`;
-//   doc += `<h1>${track.name}</h1>`;
-//   doc += `<h2>${track.artist}</h2>`;
-//   doc += `<h3>Produced by: ${track.producer}</h3>`;
-//   doc += "<h2>Genre</h2>";
-//   doc += "<ul>";
-//   track.genre.forEach(genre => {
-//     doc += `<li>${genre}</li>`;
-//   })
-//   doc += "</ul>";
-//   doc += `<p>${track.description}</p>`;
-//   res.send(doc);
-// });
-
 /*********************************************
  * Error 404
  *********************************************/
@@ -159,5 +95,5 @@ app.use((req, res, next) => {
  * Listens to a certain port (currently on port: 3000)
  *********************************************/
 app.listen(port, () => {
-  console.log(process.env.TESTVAR);
+  connectDB().then(console.log("Connection with MongoDB has succeeded."));
 });
