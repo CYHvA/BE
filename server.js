@@ -28,11 +28,13 @@ let db = null;
  * Pages
  *********************************************/
 
+// Connection with the database
 app.get("/", async (req, res) => {
   const query = {};
   const tracklist = await db.collection("songs"). find({},{}).toArray();
   const error = (tracklist.length == 0) ? "No tracks are found" : "tracklist";
 
+  // Retrieves data from the database to the index page
   let song = {
     title: req.body.title,
     artistname: req.body.artistname,
@@ -41,13 +43,15 @@ app.get("/", async (req, res) => {
     genre: req.body.genre
   };
 
+  // Renders profile page including the given data "error, tracklist and song"
   res.render("pages/profile", {error, tracklist, song});
 });
 
 app.get("/addsong", async(req,res) => {
-  res.render("pages/addsong");
+    res.render("pages/addsong", {});
 });
 
+// Adds inserted song via form to database
 app.post("/addsong", async (req, res) => {
 
   let add = {
@@ -65,7 +69,7 @@ app.post("/addsong", async (req, res) => {
   res.render("pages/profile", {tracklist});
 });
 
-// connection with mongodb 
+// Connection with MongoDB
 async function connectDB() {
   const uri = process.env.DB_URI;
 

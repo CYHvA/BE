@@ -12,15 +12,22 @@
 </head>
 <body>
     <%- include('../partials/headers'); %>
+    <h1>Added Songs</h1>
     <article>
-        <h2>Added Songs</h2>
-
         <% tracklist.forEach(function(track) { %>
-            <h2><%=track.title%></h2>
-            <p>Artist: <%=track.artistname%></p>
-            <p>Year: <%=track.year%></p>
-            <p>Genre: <%=track.genre%></p>
+            <section class="blocks">
+                <h2><%=track.title%></h2>
+                <h3>Artist:</h3>
+                <p><%=track.artistname%></p>
+                <h3>Released Year:</h3>
+                <p><%=track.year%></p>
+                <h3>Genre:</h3>
+                <p><%=track.genre%></p>
+                <h3>Producer:</h3>
+                <p><%=track.producer%></p>
+            </section>
         <% }) %>
     </article>
+    <script src="/js/observer.js"></script>
 </body>
 </html>

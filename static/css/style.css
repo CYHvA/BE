@@ -6,8 +6,13 @@
     margin: 0 auto;
 }
 
-h1, h2, h3, p, a {
+h1, h2, h3, p, a, label {
     font-family: 'Quicksand', sans-serif;
+}
+
+label {
+    font-weight: bold;
+    color: white;
 }
 
 :root {
@@ -46,4 +51,64 @@ body {
 
 body h1 {
     color: white;
+}
+
+article {
+    padding: 0 30px 0 30px;
+}
+
+article h2 {
+    margin-bottom: 10px;
+}
+
+article p {
+    margin-bottom: 10px;
+}
+
+input, select {
+    display: inline-block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+form {
+    padding: 20px 5%;
+    margin-top: 50px;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: #af4c4c;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    transition: .1s ease-in-out;
+    background-color: #ff2c2c;
+}
+
+section {
+    color: #252422;
+    margin: 0 60px 20px;
+    padding: 30px 0;
+    padding-left: 30px;
+    border-radius: 10px;
+}
+
+.blocks {
+    background-color: #edede9;
+    transform: translateY(100px);
+    transition: 150ms;
+}
+
+body h1 {
+    text-align: center;
+    margin-top: 60px;
 }
