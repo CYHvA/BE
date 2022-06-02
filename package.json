@@ -23,8 +23,6 @@
   },
   "homepage": "https://github.com/CYHvA/BE#readme",
   "dependencies": {
-    "array-back": "^6.2.2",
-    "arrayify": "^1.0.0",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.7",
     "eslint": "^8.16.0",
