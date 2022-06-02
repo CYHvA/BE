@@ -9,15 +9,25 @@ I have made a feature where people can upload (the upload part is not working ye
 
 To install this application make sure you have Git, Node and NPM installed on your local device. These are mandatory. Once the installation is complete open terminal and type this following commands:
 
-``` git clone https://github.com/CYHvA/BE ```
+``` 
+git clone https://github.com/CYHvA/BE 
+```
 
 After cloning the repository, the next step will be installing the packages that you have cloned. Simply type this following command: 
-``` npm install ```
+``` 
+npm install 
+```
 
 Now you have installed the modules in order to make the application work. To start this project simply type this command: 
-``` npm run dev ```
+``` 
+npm run dev 
+```
 
-Congratulations, you have started the application locally. Now go to a browers and type in ``` localhost:3000 ``` and the application will pop up. 
+Congratulations, you have started the application locally. Now go to a browers and type in 
+``` 
+localhost:3000 
+``` 
+and the application will pop up. 
 
 The last step will be connecting MongoDB, an online database enough for simple data. Just make a new .env file and add the information that MongoDB requires. 
 
