@@ -102,13 +102,17 @@ section {
     border-radius: 10px;
 }
 
-.blocks {
-    background-color: #edede9;
-    transform: translateY(100px);
-    transition: 150ms;
-}
-
 body h1 {
     text-align: center;
     margin-top: 60px;
+}
+
+.blocks {
+    background-color: #edede9;
+    opacity: 0;
+    transition: opacity 1s ease-in;   
+}
+
+.blocks.fade {
+    opacity: 1;
 }
