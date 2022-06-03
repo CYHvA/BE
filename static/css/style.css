@@ -109,13 +109,13 @@ body h1 {
 
 .blocks {
     background-color: #edede9;
-    transition: opacity .3s ease-in;   
+    transition: opacity .4s ease-in;   
 }
 
-.verbergen {
+.hidden {
     opacity: 0;
 }
 
-.fade {
+.show {
     opacity: 1;
 }

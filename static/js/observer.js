@@ -1,27 +1,16 @@
-const allAnimationItems = document.querySelectorAll(".blocks");
+const allBlocks = document.querySelectorAll(".blocks");
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("show", entry.isIntersecting);
+    });
+  },
+  {
+    threshold: 0.2,
+  }
+);
 
-const options = {
-  rootMargin: "0px",
-  threshold: 0.2,
-};
-
-function callbackFunction(entries) {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.replace("verbergen", "fade");
-    }
-  });
-}
-
-const observer = new IntersectionObserver(callbackFunction, options);
-
-allAnimationItems.forEach((item) => {
-  //observeer het element
-  observer.observe(item);
+allBlocks.forEach((block) => {
+  observer.observe(block);
+  block.classList.add("hidden");
 });
-
-window.addEventListener('load', () => {
-    allAnimationItems.forEach((block) => {
-          block.classList.add("verbergen");
-      });
-})
