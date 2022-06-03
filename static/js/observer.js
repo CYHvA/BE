@@ -1,31 +1,27 @@
-const allAnimationItems = document.querySelectorAll('.blocks')
+const allAnimationItems = document.querySelectorAll(".blocks");
 
 const options = {
-    rootMargin: "20px",
-    threshold: 0.2
-}
+  rootMargin: "0px",
+  threshold: 0.2,
+};
 
 function callbackFunction(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade')   
-        }
-    })
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.replace("verbergen", "fade");
+    }
+  });
 }
 
-const observer = new IntersectionObserver(callbackFunction, options)
+const observer = new IntersectionObserver(callbackFunction, options);
 
-allAnimationItems.forEach(item => {
-    //observeer het element
-    observer.observe(item)
+allAnimationItems.forEach((item) => {
+  //observeer het element
+  observer.observe(item);
+});
+
+window.addEventListener('load', () => {
+    allAnimationItems.forEach((block) => {
+          block.classList.add("verbergen");
+      });
 })
-
-// const scriptSrc = document.querySelector("script-src-elem")
-
-// if (scriptSrc = true) {
-//   console.log("true")
-// }
-
-// if (scriptSrc = false) {
-//   console.log("false")
-// }
