@@ -110,6 +110,9 @@ body h1 {
 
 .blocks {
     background-color: #edede9; 
+    display: flex;
+    align-items: center;
+    padding-left: 4em;
 }
 
 .hidden {
@@ -130,5 +133,9 @@ body h1 {
     border-radius: 100px;
     width: 200px;
     height: 200px;
-    z-index: 1;
+}
+
+.container {
+    margin-left: 4em;
+    flex-grow: 2;
 }

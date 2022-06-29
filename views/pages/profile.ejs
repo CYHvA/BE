@@ -16,17 +16,19 @@
     <article>
         <% tracklist.forEach(function(track) { %>
             <section class="blocks">
-                <img src="images/demo.jpg" class="img" alt="foto">
+                <img src="images/no-photo.jpg" class="img" alt="foto">
                 <div id="thumbnail"></div>
-                <h2><%=track.title%></h2>
-                <h3>Artist:</h3>
-                <p><%=track.artistname%></p>
-                <h3>Released Year:</h3>
-                <p><%=track.year%></p>
-                <h3>Genre:</h3>
-                <p><%=track.genre%></p>
-                <h3>Producer:</h3>
-                <p><%=track.producer%></p>
+                <div class="container">
+                    <h2><%=track.title%></h2>
+                    <h3>Artist:</h3>
+                    <p><%=track.artistname%></p>
+                    <h3>Released Year:</h3>
+                    <p><%=track.year%></p>
+                    <h3>Genre:</h3>
+                    <p><%=track.genre%></p>
+                    <h3>Producer:</h3>
+                    <p><%=track.producer%></p>
+                </div>
             </section>
         <% }) %>
     </article>

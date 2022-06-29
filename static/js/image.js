@@ -13,6 +13,7 @@ fallBack()
 
 // Ophalen van API data 
 fetch('https://place.dog/200/200')
+  // .then( res => console.log(res))
 
   // Deze API hoeft niet omgezet te worden naar een .json omdat het al een .json API is
   // De "thumbNail" vullen met de "data"(API) en geef ik de URL mee
